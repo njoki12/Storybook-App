@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - Magical Storybook</title>
+  <link rel="stylesheet" href="app.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .offline-box {
+      background: rgba(255,255,255,0.06);
+      border-radius: 18px;
+      padding: 24px;
+      max-width: 420px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+    }
+    h1 {
+      font-size: clamp(22px, 6vw, 36px);
+      margin-bottom: 12px;
+      text-shadow: 0 0 12px rgba(255,255,255,0.6);
+    }
+    p {
+      font-size: clamp(14px, 4vw, 18px);
+      margin-bottom: 16px;
+      color: #ddd;
+    }
+    .retry-btn {
+      padding: 10px 20px;
+      border-radius: 30px;
+      border: none;
+      background: linear-gradient(90deg,#ffdde1,#ee9ca7);
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.25s;
+    }
+    .retry-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 20px rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-box">
+    <h1>📖 You’re Offline</h1>
+    <p>It looks like you’ve lost your connection.  
+       Don’t worry — the magic will return once you’re back online!</p>
+    <button class="retry-btn" onclick="window.location.reload()">🔄 Try Again</button>
+  </div>
+</body>
+</html>

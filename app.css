@@ -1,0 +1,373 @@
+/* ===================================
+   GLOBAL APP STYLES
+=================================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; }
+body {
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  background: #000;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Scene layer */
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  text-align: center;
+}
+
+/* Generic character helpers */
+.luna, .girl {
+  position: absolute;
+  z-index: 1;
+  user-select: none;
+  pointer-events: none;
+}
+.luna { top: 30px; right: 40px; font-size: clamp(36px,6vw,64px); }
+.girl { bottom: 10px; left: 10px; font-size: clamp(28px,5vw,48px); pointer-events: none; }
+
+/* ===================================
+   BACKGROUND STARS + SHOOTING STARS
+=================================== */
+.stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 3s infinite alternate;
+}
+@keyframes twinkle {
+  from { opacity: 0.3; transform: scale(1); }
+  to   { opacity: 1; transform: scale(1.5); }
+}
+.shooting-star {
+  position: absolute;
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(90deg, #fff, transparent);
+  opacity: 0.9;
+  transform: rotate(45deg);
+  animation: shoot 1s linear forwards;
+  z-index: 0;
+  pointer-events: none;
+}
+@keyframes shoot {
+  from { transform: translate(0, 0) rotate(45deg); opacity: 1; }
+  to   { transform: translate(-600px, 600px) rotate(45deg); opacity: 0; }
+}
+
+  to   { transform: translateY(-120vh) translateX(40vw) scale(1.2); opacity: 0; }
+
+
+/* Optional background video (keeps behind everything) */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* ===================================
+   MAIN HOME PAGE
+=================================== */
+.main-title, .story-title {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(26px, 5vw, 46px);
+  text-shadow: 0 0 20px rgba(255,255,255,0.7);
+  margin-bottom: 8px;
+}
+.subtitle {
+  z-index: 2;
+  margin-bottom: 18px;
+  color: #e8e8e8;
+}
+
+/* story-row / cards */
+.story-row {
+  display: flex;
+  gap: 20px;
+  z-index: 2;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  width: 100%;
+  padding: 0 12px;
+}
+.story-box {
+  background: rgba(255,255,255,0.06);
+  border-radius: 18px;
+  padding: 18px;
+  flex: 1 1 250px;
+  max-width: 340px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45), inset 0 0 10px rgba(255,255,255,0.02);
+  text-align: center;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  z-index: 2;
+}
+.story-box:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 34px rgba(0,0,0,0.6);
+}
+.story-box h2 {
+  font-size: clamp(18px, 3vw, 22px);
+  margin-bottom: 6px;
+}
+.story-box p {
+  font-size: clamp(13px, 2.2vw, 15px);
+  margin-bottom: 12px;
+  color: #dcdcdc;
+}
+
+/* ===================================
+   BUTTONS (Start, Back, Next, Library)
+=================================== */
+.start-btn, .back-btn, .next-btn, .library-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 700;
+  color: #000;
+  font-size: clamp(13px, 2.2vw, 18px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  z-index: 3;
+  animation: pulse 2.2s infinite alternate;
+  border: none;
+  cursor: pointer;
+}
+.start-btn {
+  background: linear-gradient(90deg,#a18cd1,#fbc2eb);
+}
+.back-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 16px;
+  background: linear-gradient(90deg,#ff9a9e,#fecfef);
+}
+.next-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 16px;
+  background: linear-gradient(90deg,#a1c4fd,#c2e9fb);
+}
+.library-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg,#ffdde1,#ee9ca7);
+}
+.start-btn:hover, .back-btn:hover, .next-btn:hover, .library-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 30px rgba(255,255,255,0.15);
+}
+@keyframes pulse {
+  from { box-shadow: 0 0 8px rgba(255,255,255,0.35); }
+  to   { box-shadow: 0 0 20px rgba(255,255,255,0.65); }
+}
+
+/* ===================================
+   STORY PAGES (CHAPTERS)
+=================================== */
+.chapter-title {
+  text-align: center;
+  font-size: clamp(20px, 4.5vw, 34px);
+  margin-top: 20px;
+  text-shadow: 0 0 12px rgba(255,255,200,0.85);
+  z-index: 2;
+  margin-bottom: 16px;
+}
+.story {
+  position: relative;
+  margin: 18px auto 120px;
+  width: 92%;
+  max-width: 680px;
+  text-align: center;
+  line-height: 1.6;
+  z-index: 2;
+}
+.story p {
+  opacity: 0; /* animated in by JS */
+  margin: 10px 0;
+  font-size: clamp(14px, 2.4vw, 18px);
+  color: #efecec;
+}
+.narration {
+  font-style: italic;
+  color: #bdf7da;
+  text-shadow: 0 0 8px #bdf7da;
+}
+.dialogue {
+  font-weight: 700;
+  color: #ffb6c1;
+  text-shadow: 0 0 6px #ffb6c1;
+}
+
+/* ===================================
+   Hidden Garden Flowers & layout
+   (single definition - merged)
+=================================== */
+.garden {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 420px;
+  z-index: 1;
+}
+
+/* position a few flowers - keep selectors specific so they don't clash */
+.garden .flower {
+  position: absolute;
+  font-size: clamp(28px, 3.6vw, 36px);
+  cursor: pointer;
+  transition: transform 0.28s ease;
+  z-index: 2;
+}
+.garden .flower:nth-of-type(1) { top: 62%; left: 12%; }
+.garden .flower:nth-of-type(2) { top: 70%; left: 36%; }
+.garden .flower:nth-of-type(3) { top: 66%; left: 60%; }
+.garden .flower:nth-of-type(4) { top: 74%; left: 82%; }
+.garden .flower:hover { transform: scale(1.18); }
+
+/* ===================================
+   Brave Knight: castle scene, dragon & fire
+=================================== */
+.castle-scene {
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 18px;
+  text-align: center;
+  z-index: 1;
+}
+
+.dragon {
+  font-size: clamp(40px, 6.5vw, 72px); /* responsive sizing */
+  margin: 8px auto;
+  cursor: pointer;
+  transition: transform 0.28s ease;
+  z-index: 3;
+  pointer-events: auto;
+  user-select: none;
+}
+
+/* add a gentle idle float so it feels alive (subtle) */
+@keyframes floaty {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+.dragon { animation: floaty 6s ease-in-out infinite; }
+
+.dragon:hover { transform: scale(1.12); }
+
+.fire {
+  font-size: clamp(20px, 3vw, 36px);
+  opacity: 0;
+  pointer-events: none;
+  margin-left: 8px;
+  z-index: 2;
+  position: relative;
+}
+
+/* ensure story area sits above background but below interactive characters */
+.story { z-index: 2; }
+
+/* ===================================
+   NAV BUTTONS (inline nav for chapters)
+=================================== */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 92%;
+  max-width: 680px;
+  margin: 12px auto 30px;
+  padding: 0 8px;
+  z-index: 3;
+}
+.nav-btn {
+  background: linear-gradient(45deg,#ff66cc,#6699ff);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 22px;
+  cursor: pointer;
+  font-size: clamp(13px, 2.2vw, 16px);
+  font-weight: 700;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.nav-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+
+/* ===================================
+   RESPONSIVE MEDIA QUERIES
+=================================== */
+@media (max-width: 900px) {
+  .story-row { gap: 14px; }
+  .story-box { max-width: 300px; padding: 16px; }
+  .back-btn, .next-btn, .library-btn { padding: 8px 16px; bottom: 14px; }
+  .dragon { font-size: clamp(36px, 7.5vw, 64px); }
+  .garden .flower { font-size: clamp(22px, 6vw, 32px); }
+}
+@media (max-width: 600px) {
+  .scene { padding: 12px; }
+  .main-title, .story-title { font-size: clamp(18px, 6.5vw, 28px); margin-bottom: 8px; }
+  .story-row { flex-direction: column; align-items: center; }
+  .story-box { width: 92%; max-width: 420px; }
+  .story { margin-bottom: 90px; }
+  .back-btn, .next-btn, .library-btn { bottom: 12px; padding: 8px 12px; }
+  .dragon { font-size: clamp(32px, 10vw, 48px); margin-top: 6px; }
+  .garden .flower { font-size: clamp(20px, 8vw, 28px); }
+  .luna { right: 14px; top: 18px; font-size: clamp(28px, 10vw, 44px); }
+  .girl { left: 8px; bottom: 6px; font-size: clamp(20px, 9vw, 36px); }
+}
+
+/* small touch-target increase for accessibility */
+.start-btn, .nav-btn, .back-btn, .next-btn, .library-btn {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+/* 🐉 Brave Knight Dragon Image */
+.dragon-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.dragon-img {
+  width: 150px;   /* Adjust size */
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+
+.dragon-img:hover {
+  transform: scale(1.1);
+}
